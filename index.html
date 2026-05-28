@@ -267,4 +267,136 @@
         { affirmative: "Elle mange du riz.", type: "ne...jamais", answers: ["Elle ne mange jamais de riz.", "elle ne mange jamais de riz."], english: "She eats rice. ➔ She never eats rice." },
         { affirmative: "Vous voyagez en train.", type: "ne...jamais", answers: ["Vous ne voyagez jamais en train.", "vous ne voyagez jamais en train."], english: "You travel by train. ➔ You never travel by train." },
         { affirmative: "Ils regardent des films.", type: "ne...jamais", answers: ["Ils ne regardent jamais de films.", "ils ne regardent jamais de films."], english: "They watch movies. ➔ They never watch movies." },
-        { affirmative: "Je mange de la salade.", type: "ne...jamais", answers:
+       { affirmative: "Je mange de la salade.", type: "ne...jamais", answers: ["Je ne mange jamais de salade.", "je ne mange jamais de salade."], english: "I eat salad. ➔ I never eat salad." },
+        { affirmative: "Il prend le bus.", type: "ne...jamais", answers: ["Il ne prend jamais le bus.", "il ne prend jamais le bus."], english: "He takes the bus. ➔ He never takes the bus." },
+        { affirmative: "Nous achetons du pain.", type: "ne...jamais", answers: ["Nous n'achetons jamais de pain.", "nous n'achetons jamais de pain."], english: "We buy bread. ➔ We never buy bread." },
+        { affirmative: "Elle mange des pommes.", type: "ne...jamais", answers: ["Elle ne mange jamais de pommes.", "elle ne mange jamais de pommes."], english: "She eats apples. ➔ She never eats apples." }
+    ];
+
+    function shuffleAndPick(array, count) {
+        let shuffled = [...array].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+    }
+
+    const questions = shuffleAndPick(pool, 20);
+    let currentIdx = 0;
+    let score = 0;
+    let isTrans = false;
+    let hasChecked = false;
+
+    const qTextElem = document.getElementById('q-text');
+    const tLinkElem = document.getElementById('t-link');
+    const qCountElem = document.getElementById('q-count');
+    const pBarElem = document.getElementById('p-bar');
+    const scoreCountElem = document.getElementById('score-count');
+    const inputElem = document.getElementById('user-input');
+    const feedbackElem = document.getElementById('feedback');
+    const actionBtnElem = document.getElementById('action-btn');
+
+    function loadQ() {
+        isTrans = false;
+        hasChecked = false;
+        
+        const q = questions[currentIdx];
+        qTextElem.innerHTML = `Mettre à la forme négative (<b>${q.type}</b>) : <br><br> <span style="color:var(--primary); font-size:24px;">« ${q.affirmative} »</span>`;
+        tLinkElem.innerText = "👁️ Traduire la consigne en anglais / Translate prompt to English";
+        
+        qCountElem.innerText = `Question ${currentIdx + 1}/20`;
+        pBarElem.style.width = ((currentIdx + 1) / 20 * 100) + "%";
+        
+        inputElem.value = "";
+        inputElem.disabled = false;
+        inputElem.className = "answer-input";
+        
+        feedbackElem.style.display = 'none';
+        actionBtnElem.innerText = "Vérifier / Check";
+        inputElem.focus();
+    }
+
+    function toggleTranslation() {
+        isTrans = !isTrans;
+        tLinkElem.innerText = isTrans ? questions[currentIdx].english : "👁️ Traduire la consigne en anglais / Translate prompt to English";
+    }
+
+    function handleAction() {
+        if (!hasChecked) {
+            checkAnswer();
+        } else {
+            nextQuestion();
+        }
+    }
+
+    function checkAnswer() {
+        let userAns = inputElem.value.trim();
+        if (userAns === "") return;
+
+        const currentQ = questions[currentIdx];
+        
+        // Flag pour savoir si l'étudiant a oublié le point final
+        let missingPunctuation = false;
+        if (!userAns.endsWith('.')) {
+            missingPunctuation = true;
+        }
+
+        // Pour la comparaison, on nettoie les espaces multiples et on retire le point final s'il existe
+        let cleanUserAns = userAns.replace(/\s+/g, ' ').replace(/\.$/, '').trim();
+
+        // On fait de même pour la liste des réponses acceptées (on compare sans le point final)
+        const isCorrect = currentQ.answers.some(ans => {
+            let cleanExpected = ans.replace(/\s+/g, ' ').replace(/\.$/, '').trim();
+            return cleanUserAns === cleanExpected;
+        });
+
+        inputElem.disabled = true;
+        hasChecked = true;
+        feedbackElem.style.display = 'block';
+
+        if (isCorrect) {
+            inputElem.classList.add('input-correct');
+            feedbackElem.className = "feedback fb-correct";
+            
+            if (missingPunctuation) {
+                feedbackElem.innerHTML = `Excellent ! Correct. ✅ <span class="punctuation-warning">⚠️ Attention : N'oubliez pas d'ajouter le point final (.) à votre phrase !</span>`;
+            } else {
+                feedbackElem.innerText = "Excellent ! Correct. ✅";
+            }
+            score++;
+            scoreCountElem.innerText = "Score: " + score;
+        } else {
+            inputElem.classList.add('input-incorrect');
+            feedbackElem.className = "feedback fb-incorrect";
+            feedbackElem.innerHTML = `Dommage ! La réponse attendue était : <br><b>${currentQ.answers[0]}</b> ❌`;
+        }
+
+        actionBtnElem.innerText = "Question suivante / Next →";
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        if (currentIdx < 20) {
+            loadQ();
+        } else {
+            showRes();
+        }
+    }
+
+    function showRes() {
+        document.getElementById('quiz-ui').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+        document.getElementById('final-score').innerText = score + " / 20";
+        const comm = document.getElementById('res-comment');
+        
+        if (score === 20) {
+            comm.innerHTML = "Parfait ! Vous maîtrisez parfaitement la négation A1.<br><i>Perfect! You have completely mastered A1 negation.</i>";
+        } else if (score >= 14) {
+            comm.innerHTML = "Très bien ! Vous comprenez bien les structures négatives.<br><i>Great job! You understand negative structures well.</i>";
+        } else {
+            comm.innerHTML = "Continuez d'apprendre ! Attention aux transformations des articles (un/une/des/du ➔ de).<br><i>Keep learning! Watch out for article transformations (un/une/des/du ➔ de).</i>";
+        }
+    }
+
+    window.onload = loadQ;
+</script>
+
+</body>
+</html>
