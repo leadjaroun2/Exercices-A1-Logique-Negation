@@ -159,7 +159,7 @@
         .punctuation-warning {
             display: block;
             font-size: 14px;
-            color: #D97706; /* Orange pour l'avertissement */
+            color: #D97706;
             font-weight: 600;
             margin-top: 5px;
         }
@@ -224,9 +224,9 @@
 </div>
 
 <script>
-    // Banque de 40 phrases A1 calquées sur la structure de la page Négation (Aimer/Détester/Manger/Boire/Écouter)
+    // Banque de 40 phrases A1 strictement uniques pour éviter les doublons visuels
     const pool = [
-        // --- STRUCTURE : NE ... PAS ---
+        // --- STRUCTURE : NE ... PAS (15 phrases) ---
         { affirmative: "J'aime cuisiner.", type: "ne...pas", answers: ["Je n'aime pas cuisiner.", "je n'aime pas cuisiner."], english: "I like cooking. ➔ I don't like cooking." },
         { affirmative: "Tu manges des fruits.", type: "ne...pas", answers: ["Tu ne manges pas de fruits.", "tu ne manges pas de fruits."], english: "You eat fruits. ➔ You don't eat fruits." },
         { affirmative: "Nous aimons jouer aux jeux de société.", type: "ne...pas", answers: ["Nous n'aimons pas jouer aux jeux de société.", "nous n'aimons pas jouer aux jeux de société."], english: "We like playing board games. ➔ We don't like playing board games." },
@@ -243,34 +243,34 @@
         { affirmative: "Vous buvez du café.", type: "ne...pas", answers: ["Vous ne buvez pas de café.", "vous ne buvez pas de café."], english: "You drink coffee. ➔ You don't drink coffee." },
         { affirmative: "Je mange de la viande.", type: "ne...pas", answers: ["Je ne mange pas de viande.", "je ne mange pas de viande."], english: "I eat meat. ➔ I don't eat meat." },
 
-        // --- STRUCTURE : NE ... PLUS ---
-        { affirmative: "J'aime encore cuisiner.", type: "ne...plus", answers: ["Je n'aime plus cuisiner.", "je n'aime plus cuisiner."], english: "I still like cooking. ➔ I no longer like cooking." },
-        { affirmative: "Tu manges encore des fruits.", type: "ne...plus", answers: ["Tu ne manges plus de fruits.", "tu ne manges plus de fruits."], english: "You still eat fruits. ➔ You don't eat fruits anymore." },
-        { affirmative: "Nous aimons encore jouer aux jeux de société.", type: "ne...plus", answers: ["Nous n'aimons plus jouer aux jeux de société.", "nous n'aimons plus jouer aux jeux de société."], english: "We still like playing board games. ➔ We no longer like playing board games." },
-        { affirmative: "Je bois encore du café.", type: "ne...plus", answers: ["Je ne bois plus de café.", "je ne bois plus de café."], english: "I still drink coffee. ➔ I don't drink coffee anymore." },
+        // --- STRUCTURE : NE ... PLUS (13 phrases) ---
+        { affirmative: "J'aime encore cuisiner pour mes amis.", type: "ne...plus", answers: ["Je n'aime plus cuisiner pour mes amis.", "je n'aime plus cuisiner pour mes amis."], english: "I still like cooking for my friends. ➔ I no longer like cooking for my friends." },
+        { affirmative: "Tu manges encore des oranges.", type: "ne...plus", answers: ["Tu ne manges plus d'oranges.", "tu ne manges plus d'oranges."], english: "You still eat oranges. ➔ You don't eat oranges anymore." },
+        { affirmative: "Nous aimons encore jouer au football.", type: "ne...plus", answers: ["Nous n'aimons plus jouer au football.", "nous n'aimons plus jouer au football."], english: "We still like playing football. ➔ We no longer like playing football." },
+        { affirmative: "Je bois encore du lait le matin.", type: "ne...plus", answers: ["Je ne bois plus de lait le matin.", "je ne bois plus de lait le matin."], english: "I still drink milk in the morning. ➔ I don't drink milk in the morning anymore." },
         { affirmative: "Il habite encore à Lyon.", type: "ne...plus", answers: ["Il n'habite plus à Lyon.", "il n'habite plus à Lyon."], english: "He still lives in Lyon. ➔ He no longer lives in Lyon." },
-        { affirmative: "Elle mange encore de la viande.", type: "ne...plus", answers: ["Elle ne mange plus de viande.", "elle ne mange plus de viande."], english: "She still eats meat. ➔ She no longer eats meat." },
-        { affirmative: "Vous buvez encore du lait.", type: "ne...plus", answers: ["Vous ne buvez plus de lait.", "vous ne buvez plus de lait."], english: "You still drink milk. ➔ You no longer drink milk." },
+        { affirmative: "Elle mange encore de la salade.", type: "ne...plus", answers: ["Elle ne mange plus de salade.", "elle ne mange plus de salade."], english: "She still eats salad. ➔ She no longer eats salad." },
+        { affirmative: "Vous buvez encore du soda.", type: "ne...plus", answers: ["Vous ne buvez plus de soda.", "vous ne buvez plus de soda."], english: "You still drink soda. ➔ You no longer drink soda." },
         { affirmative: "Ils travaillent encore ici.", type: "ne...plus", answers: ["Ils ne travaillent plus ici.", "ils ne travaillent plus ici."], english: "They still work here. ➔ They don't work here anymore." },
-        { affirmative: "J'ai faim.", type: "ne...plus", answers: ["Je n'ai plus faim.", "je n'ai plus faim."], english: "I am hungry. ➔ I am no longer hungry." },
-        { affirmative: "Tu regardes la télévision.", type: "ne...plus", answers: ["Tu ne regardes plus la télévision.", "tu ne regardes plus la télévision."], english: "You watch TV. ➔ You don't watch TV anymore." },
-        { affirmative: "Nous achetons des bonbons.", type: "ne...plus", answers: ["Nous n'achetons plus de bonbons.", "nous n'achetons plus de bonbons."], english: "We buy candies. ➔ We don't buy candies anymore." },
-        { affirmative: "Il fait du sport.", type: "ne...plus", answers: ["Il ne fait plus de sport.", "il ne fait plus de sport."], english: "He does sports. ➔ He no longer does sports." },
+        { affirmative: "J'ai encore faim.", type: "ne...plus", answers: ["Je n'ai plus faim.", "je n'ai plus faim."], english: "I am still hungry. ➔ I am no longer hungry." },
+        { affirmative: "Tu regardes encore la télévision.", type: "ne...plus", answers: ["Tu ne regardes plus la télévision.", "tu ne regardes plus la télévision."], english: "You still watch TV. ➔ You don't watch TV anymore." },
+        { affirmative: "Nous achetons encore des bonbons.", type: "ne...plus", answers: ["Nous n'achetons plus de bonbons.", "nous n'achetons plus de bonbons."], english: "We still buy candies. ➔ We don't buy candies anymore." },
+        { affirmative: "Il fait encore du sport le week-end.", type: "ne...plus", answers: ["Il ne fait plus de sport le week-end.", "il ne fait plus de sport le week-end."], english: "He still does sports on weekends. ➔ He no longer does sports on weekends." },
+        { affirmative: "Elle a encore un chat blanc.", type: "ne...plus", answers: ["Elle n'a plus de chat blanc.", "elle n'a plus de chat blanc."], english: "She still has a white cat. ➔ She no longer has a white cat." },
 
-        // --- STRUCTURE : NE ... JAMAIS ---
-        { affirmative: "Je bois du thé.", type: "ne...jamais", answers: ["Je ne bois jamais de thé.", "je ne bois jamais de thé."], english: "I drink tea. ➔ I never drink tea." },
-        { affirmative: "Tu manges des pâtes.", type: "ne...jamais", answers: ["Tu ne manges jamais de pâtes.", "tu ne manges jamais de pâtes."], english: "You eat pasta. ➔ You never eat pasta." },
-        { affirmative: "Il écoute de la musique.", type: "ne...jamais", answers: ["Il n'écoute jamais de musique.", "il n'écoute jamais de musique."], english: "He listens to music. ➔ He never listens to music." },
+        // --- STRUCTURE : NE ... JAMAIS (12 phrases) ---
+        { affirmative: "Je bois du thé vert.", type: "ne...jamais", answers: ["Je ne bois jamais de thé vert.", "je ne bois jamais de thé vert."], english: "I drink green tea. ➔ I never drink green tea." },
+        { affirmative: "Tu manges des pâtes italiennes.", type: "ne...jamais", answers: ["Tu ne manges jamais de pâtes italiennes.", "tu ne manges jamais de pâtes italiennes."], english: "You eat Italian pasta. ➔ You never eat Italian pasta." },
+        { affirmative: "Il écoute du rock.", type: "ne...jamais", answers: ["Il n'écoute jamais de rock.", "il n'écoute jamais de rock."], english: "He listens to rock music. ➔ He never listens to rock music." },
         { affirmative: "Je bois de l'alcool.", type: "ne...jamais", answers: ["Je ne bois jamais d'alcool.", "je ne bois jamais d'alcool."], english: "I drink alcohol. ➔ I never drink alcohol." },
         { affirmative: "Nous buvons de la bière.", type: "ne...jamais", answers: ["Nous ne buvons jamais de bière.", "nous ne buvons jamais de bière."], english: "We drink beer. ➔ We never drink beer." },
-        { affirmative: "Tu manges des fruits.", type: "ne...jamais", answers: ["Tu ne manges jamais de fruits.", "tu ne manges jamais de fruits."], english: "You eat fruits. ➔ You never eat fruits." },
-        { affirmative: "Elle mange du riz.", type: "ne...jamais", answers: ["Elle ne mange jamais de riz.", "elle ne mange jamais de riz."], english: "She eats rice. ➔ She never eats rice." },
+        { affirmative: "Tu manges des légumes.", type: "ne...jamais", answers: ["Tu ne manges jamais de légumes.", "tu ne manges jamais de légumes."], english: "You eat vegetables. ➔ You never eat vegetables." },
+        { affirmative: "Elle mange du riz nature.", type: "ne...jamais", answers: ["Elle ne mange jamais de riz nature.", "elle ne mange jamais de riz nature."], english: "She eats plain rice. ➔ She never eats plain rice." },
         { affirmative: "Vous voyagez en train.", type: "ne...jamais", answers: ["Vous ne voyagez jamais en train.", "vous ne voyagez jamais en train."], english: "You travel by train. ➔ You never travel by train." },
-        { affirmative: "Ils regardent des films.", type: "ne...jamais", answers: ["Ils ne regardent jamais de films.", "ils ne regardent jamais de films."], english: "They watch movies. ➔ They never watch movies." },
-       { affirmative: "Je mange de la salade.", type: "ne...jamais", answers: ["Je ne mange jamais de salade.", "je ne mange jamais de salade."], english: "I eat salad. ➔ I never eat salad." },
-        { affirmative: "Il prend le bus.", type: "ne...jamais", answers: ["Il ne prend jamais le bus.", "il ne prend jamais le bus."], english: "He takes the bus. ➔ He never takes the bus." },
-        { affirmative: "Nous achetons du pain.", type: "ne...jamais", answers: ["Nous n'achetons jamais de pain.", "nous n'achetons jamais de pain."], english: "We buy bread. ➔ We never buy bread." },
-        { affirmative: "Elle mange des pommes.", type: "ne...jamais", answers: ["Elle ne mange jamais de pommes.", "elle ne mange jamais de pommes."], english: "She eats apples. ➔ She never eats apples." }
+        { affirmative: "Ils regardent des films d'action.", type: "ne...jamais", answers: ["Ils ne regardent jamais de films d'action.", "ils ne regardent jamais de films d'action."], english: "They watch action movies. ➔ They never watch action movies." },
+        { affirmative: "Il prend le bus rouge.", type: "ne...jamais", answers: ["Il ne prend jamais le bus rouge.", "il ne prend jamais le bus rouge."], english: "He takes the red bus. ➔ He never takes the red bus." },
+        { affirmative: "Nous achetons du pain chaud.", type: "ne...jamais", answers: ["Nous n'achetons jamais de pain chaud.", "nous n'achetons jamais de pain chaud."], english: "We buy hot bread. ➔ We never buy hot bread." },
+        { affirmative: "Elle mange des pommes rouges.", type: "ne...jamais", answers: ["Elle ne mange jamais de pommes rouges.", "elle ne mange jamais de pommes rouges."], english: "She eats red apples. ➔ She never eats red apples." }
     ];
 
     function shuffleAndPick(array, count) {
@@ -278,6 +278,7 @@
         return shuffled.slice(0, count);
     }
 
+    // Sélectionne 20 questions parmi les 40 phrases désormais toutes uniques
     const questions = shuffleAndPick(pool, 20);
     let currentIdx = 0;
     let score = 0;
@@ -332,16 +333,13 @@
 
         const currentQ = questions[currentIdx];
         
-        // Flag pour savoir si l'étudiant a oublié le point final
         let missingPunctuation = false;
         if (!userAns.endsWith('.')) {
             missingPunctuation = true;
         }
 
-        // Pour la comparaison, on nettoie les espaces multiples et on retire le point final s'il existe
         let cleanUserAns = userAns.replace(/\s+/g, ' ').replace(/\.$/, '').trim();
 
-        // On fait de même pour la liste des réponses acceptées (on compare sans le point final)
         const isCorrect = currentQ.answers.some(ans => {
             let cleanExpected = ans.replace(/\s+/g, ' ').replace(/\.$/, '').trim();
             return cleanUserAns === cleanExpected;
